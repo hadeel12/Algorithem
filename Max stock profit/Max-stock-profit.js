@@ -1,12 +1,18 @@
 function maxStockProfit(stockPrices) {
-    var maxProfit=0;
-    for(var index=0;index<stockPrices.length;index++){
-        if(stockPrices[index]<stockPrices[index+1]){
-            var profit=stockPrices[index+1]-stockPrices[index];
-            if(profit>maxProfit){
-                maxProfit=profit;
-            }
-            stockPrices[index+1]=stockPrices[index];
+    var maxProfit = -1;
+    var buyPrice = 0;
+    var sellPrice = 0;
+    var changeBuyPrice = true;
+    for (var i = 0; i < stockPrices.length; i++) {
+        if (changeBuyPrice) buyPrice = stockPrices[i];
+        sellPrice = stockPrices[i + 1];
+        if (sellPrice < buyPrice) {
+            changeBuyPrice = true;
+        }
+        else {
+            var Profit = sellPrice - buyPrice;
+            if (Profit > maxProfit) maxProfit = Profit;
+            changeBuyPrice = false;
         }
     }
     return maxProfit;
