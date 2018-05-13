@@ -1,14 +1,16 @@
-function BinarySearch(numbers,requiredNumber) {
-    var middleIndex = Math.floor(numbers.length / 2);
-    var middleNumber = numbers[middleIndex];
+function BinarySearch(values, startIndex, endIndex, searchedValue) {
+    var middleIndex = Math.floor((startIndex + endIndex) / 2);
+    var middleValue = values[middleIndex];
 
-    if (middleNumber === requiredNumber) return true;
-    else if (middleNumber < requiredNumber && numbers.length > 1) {
-        return BinarySearch(numbers.splice(middleIndex, numbers.length), requiredNumber);
-    }
-    else if (middleNumber > requiredNumber && numbers.length > 1) {
-        return BinarySearch(numbers.splice(0, middleIndex), requiredNumber);
-    }
-    else return false;
+    if (middleValue === searchedValue) return true;
+    else if (middleValue < searchedValue && endIndex-startIndex > 1) {
+        startIndex=middleIndex;
+        return BinarySearch(values, startIndex, endIndex, searchedValue);
+    } else if (middleValue > searchedValue && values.length > 1) {
+        endIndex=middleIndex;
+        return BinarySearch(values, startIndex, endIndex, searchedValue);
+    } else return false;
 }
-console.log(BinarySearch([5, 7, 12, 16, 36, 39, 42, 56, 71], 56));
+
+var values = [1, 2, 5, 12, 25,50,70,100];
+console.log(BinarySearch(values, 0, values.length-1, 100));
