@@ -6,12 +6,19 @@ function mergeSort(values) {
 }
 function merge(leftSideValues, rightSideValues) {
     var sortedValues = [];
-    while(leftSideValues.length > 0 || rightSideValues.length > 0) {
-        if (leftSideValues.length > 0 && rightSideValues.length > 0) {
-            (leftSideValues[0] < rightSideValues[0])? sortedValues.push(leftSideValues.splice(0,1)[0]): sortedValues.push(rightSideValues.splice(0,1)[0]);
+    var leftIndex = 0;
+    var rightIndex = 0;
+    while(leftIndex < leftSideValues.length  || rightIndex < rightSideValues.length) {
+        if (leftIndex < leftSideValues.length && rightIndex < rightSideValues.length) {
+            var lowerValue = (leftSideValues[leftIndex] < rightSideValues[rightIndex])? leftSideValues[leftIndex++]: rightSideValues[rightIndex++];
+            sortedValues.push(lowerValue);
         }
-        else if (leftSideValues.length > 0) sortedValues.push(leftSideValues.splice(0,1)[0]);
-        else if (rightSideValues.length > 0) sortedValues.push(rightSideValues.splice(0,1)[0]);
+        else if (leftIndex < leftSideValues.length) {
+            sortedValues.push(leftSideValues[leftIndex++]);
+        }
+        else if (rightIndex < rightSideValues.length){
+            sortedValues.push(rightSideValues[rightIndex++]);
+        }
     }
     return sortedValues;
 }
